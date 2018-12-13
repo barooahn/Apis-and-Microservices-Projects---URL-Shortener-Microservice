@@ -30,13 +30,11 @@ app.get('/', function(req, res){
   
 app.post('/api/shorturl/new', (req,res) => {
   const url = req.body.url;
+  const re = (/^(?:https?:\/\/)?(?:www\.)?/i);
+  const urlRemoved = req.body.url.replace(re, ''); 
   
-  const re = ^https?://
-  const urlRemoved = url. 
-  
-  
-  console.log(url);
-  dns.lookup("freecodecamp.com", (err, address) => {
+  console.log(urlRemoved);
+  dns.lookup(urlRemoved, (err, address) => {
       if(err) { 
         console.log(err.code, address);
         res.json({"error":"invalid URL"});
