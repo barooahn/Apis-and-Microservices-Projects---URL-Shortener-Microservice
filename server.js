@@ -32,13 +32,17 @@ app.post('/api/shorturl/new', (req,res) => {
   const url = req.body.url;
   
   dns.lookup(url, (err, address, family) => {
-      if(err) { 
+      if(err.code) { 
+        console.log(err.code);
         res.json({"error":"invalid URL"});
       } else {
-        res.json({ 'url': `${url}`})
+        res.json({'url': url})
       }; 
   });
 });       
+
+
+
 app.listen(port, function () {
   console.log('Node.js listening ...');
 });
