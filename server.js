@@ -15,6 +15,7 @@ var port = process.env.PORT || 3000;
 
 /** this project needs a db !! **/ 
 // mongoose.connect(process.env.MONGOLAB_URI);
+mongoose.connect(process.env.MONGO_URI);
 
 app.use(cors());
 
@@ -26,6 +27,19 @@ app.use('/public', express.static(process.cwd() + '/public'));
 app.get('/', function(req, res){
   res.sendFile(process.cwd() + '/views/index.html');
 });
+
+  const Schema = mongoose.Schema;
+
+  const urlSchema = new Schema({
+    name:{type:String,required:true},
+    age: Number,
+    favoriteFoods:[String]
+  }); 
+
+const Person = mongoose.model("Person", personSchema);
+
+
+
 
   
 app.post('/api/shorturl/new', (req,res) => {
