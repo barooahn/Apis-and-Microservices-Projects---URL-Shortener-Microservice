@@ -32,7 +32,6 @@ app.get('/', function(req, res){
 
   const urlSchema = new Schema({
     original:{type:String,required:true},
-    new:{type:String},
   }); 
 
 const URLLong = mongoose.model("URLLong", urlSchema);
@@ -55,11 +54,8 @@ app.post('/api/shorturl/new', (req,res) => {
             original: url 
           });
 
-          john.save(function(err, data) {
-
+          newURL.save(function(err, data) {
             console.log(data);
-            done(null , data);
-
           });
         
       }; 
