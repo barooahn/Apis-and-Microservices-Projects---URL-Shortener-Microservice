@@ -31,15 +31,11 @@ app.get('/', function(req, res){
   const Schema = mongoose.Schema;
 
   const urlSchema = new Schema({
-    name:{type:String,required:true},
-    age: Number,
-    favoriteFoods:[String]
+    original:{type:String,required:true},
+    new:{type:String},
   }); 
 
-const Person = mongoose.model("Person", personSchema);
-
-
-
+const URLLong = mongoose.model("URLLong", urlSchema);
 
   
 app.post('/api/shorturl/new', (req,res) => {
@@ -53,7 +49,19 @@ app.post('/api/shorturl/new', (req,res) => {
         console.log(err.code, address);
         res.json({"error":"invalid URL"});
       } else {
-        res.json({'url': url})
+          
+        
+          var newURL = new URLLong ({
+            original: url 
+          });
+
+          john.save(function(err, data) {
+
+            console.log(data);
+            done(null , data);
+
+          });
+        
       }; 
   });
 });       
