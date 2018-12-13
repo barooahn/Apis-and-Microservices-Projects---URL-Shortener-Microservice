@@ -31,9 +31,14 @@ app.get('/', function(req, res){
 app.post('/api/shorturl/new', (req,res) => {
   const url = req.body.url;
   
-  dns.lookup(url, (err, address, family) => {
-      if(err.code) { 
-        console.log(err.code);
+  const re = ^https?://
+  const urlRemoved = url. 
+  
+  
+  console.log(url);
+  dns.lookup("freecodecamp.com", (err, address) => {
+      if(err) { 
+        console.log(err.code, address);
         res.json({"error":"invalid URL"});
       } else {
         res.json({'url': url})
