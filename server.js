@@ -38,9 +38,8 @@ app.get('/', function(req, res){
   }); 
 
 let URLLong = mongoose.model("URLLong", urlSchema);
-URLLong.plugin(AutoIncrement, {inc_field: 'short'});
+urlSchema.plugin(AutoIncrement, {inc_field: 'short'});
   
-
 app.post('/api/shorturl/new', (req,res) => {
   const url = req.body.url;
   const re = (/^(?:https?:\/\/)?(?:www\.)?/i);
