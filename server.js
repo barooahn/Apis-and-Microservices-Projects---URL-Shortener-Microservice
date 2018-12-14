@@ -37,7 +37,7 @@ app.get('/', function(req, res){
   }); 
 
 const URLLong = mongoose.model("URLLong", urlSchema);
-urlSchema.plugin(AutoIncrement, {inc_field: 'short'});
+urlSchema.plugin(AutoIncrement, {inc_field: 'id'});
   
 app.post('/api/shorturl/new', (req,res) => {
   const url = req.body.url;
@@ -53,14 +53,16 @@ app.post('/api/shorturl/new', (req,res) => {
         URLLong.create({ original: url }, function (err, data) {
         if (err) {
           console.log(err)
+          res.json({"error":err.code});
         }else {
-          console.log(data);
+          res.json({"saved":data});
         }
         // saved!
         });
       }; 
   });
 });       
+
 
 app.listen(port, function () {
   console.log('Node.js listening ...');
