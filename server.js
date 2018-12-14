@@ -47,13 +47,10 @@ app.post('/api/shorturl/new', (req,res) => {
       if(err) { 
         console.log(err.code, address);
         res.json({"error":"invalid URL"});
-      } else {
-          
-        
+      } else {                 
           var newURL = new URLLong ({
             original: url 
           });
-
           newURL.save(function(err, data) {
             console.log(data);
           });
