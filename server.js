@@ -37,7 +37,7 @@ app.get('/', function(req, res){
     short:{type:Number}
   }); 
 
-let URLLong = mongoose.model("URLLong", urlSchema);
+const URLLong = mongoose.model("URLLong", urlSchema);
 urlSchema.plugin(AutoIncrement, {inc_field: 'short'});
   
 app.post('/api/shorturl/new', (req,res) => {
@@ -50,14 +50,12 @@ app.post('/api/shorturl/new', (req,res) => {
       if(err) { 
         console.log(err.code, address);
         res.json({"error":"invalid URL"});
-      } else {                 
-          var newURL = new URLLong ({
-            original: url 
-          });
-          newURL.save(function(err, data) {
-            console.log(data);
-          });
-        
+      } else {        
+        URLLong.create({ original: url }, function (err, data) {
+        if (err) console.log(err);
+        console.log(data);
+        // saved!
+        });
       }; 
   });
 });       
