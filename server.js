@@ -34,7 +34,6 @@ app.get('/', function(req, res){
 
   const urlSchema = new Schema({
     original:{type:String,required:true},
-    short:{type:Number}
   }); 
 
 const URLLong = mongoose.model("URLLong", urlSchema);
@@ -52,15 +51,16 @@ app.post('/api/shorturl/new', (req,res) => {
         res.json({"error":"invalid URL"});
       } else {        
         URLLong.create({ original: url }, function (err, data) {
-        if (err) console.log(err);
-        console.log(data);
+        if (err) {
+          console.log(err)
+        }else {
+          console.log(data);
+        }
         // saved!
         });
       }; 
   });
 });       
-
-
 
 app.listen(port, function () {
   console.log('Node.js listening ...');
