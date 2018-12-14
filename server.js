@@ -36,8 +36,8 @@ app.get('/', function(req, res){
     original:{type:String,required:true},
   }); 
 
-const URLLong = mongoose.model("URLLong", urlSchema);
 urlSchema.plugin(AutoIncrement, {inc_field: 'id'});
+const URLLong = mongoose.model("URLLong", urlSchema);
   
 app.post('/api/shorturl/new', (req,res) => {
   const url = req.body.url;
