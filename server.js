@@ -3,6 +3,7 @@
 var express = require('express');
 var mongo = require('mongodb');
 var mongoose = require('mongoose');
+const AutoIncrement = require('mongoose-sequence')(mongoose);
 var bodyParser = require('body-parser');
 const dns = require('dns');
 
@@ -33,10 +34,11 @@ app.get('/', function(req, res){
 
   const urlSchema = new Schema({
     original:{type:String,required:true},
+    short:{type:Number}
   }); 
 
 const URLLong = mongoose.model("URLLong", urlSchema);
-
+URLLong.plugin(AutoIncrement, {inc_field: 'short'});
   
 app.post('/api/shorturl/new', (req,res) => {
   const url = req.body.url;
