@@ -51,20 +51,22 @@ app.post('/api/shorturl/new', (req,res) => {
         res.json({"error":"invalid URL"});
       } else {        
         URLLong.create({ original: url }, function (err, data) {
-        if (err) {
-          console.log(err)
-          res.json({"error":err.code});
-        }else {
-          res.json({"original_url":url, "short_url":data.id });
-          
-        }
-        // saved!
+          if (err) {
+            console.log(err)
+            res.json({"error":err.code});
+          }else {
+            res.json({"original_url":url, "short_url":data.id });
+          }
+
         });
       }; 
-  });
+  	});
 });       
 
-
+app.get('/api/shorturl/', (req,res) => {
+    res.sendFile(__dirname + "/views/index.html");
+});
+        
 app.listen(port, function () {
   console.log('Node.js listening ...');
 });
