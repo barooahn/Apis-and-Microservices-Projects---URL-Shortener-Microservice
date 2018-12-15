@@ -64,8 +64,13 @@ app.post('/api/shorturl/new', (req,res) => {
 });       
 
 app.get('/api/shorturl/:short', (req,res) => {
-  const original = URLLong.findOne({id: req.params.short}); 
-  res.json({"echo": original});
+  URLLong.findOne({id: req.params.short}, function (err, original) {
+  console.log(original); 
+
+  res.render(original.original);
+  }); 
+  
+  //console.log(original['original']);
   //  res.sendFile(__dirname + "/views/index.html");
 });
         
