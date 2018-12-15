@@ -63,8 +63,10 @@ app.post('/api/shorturl/new', (req,res) => {
   	});
 });       
 
-app.get('/api/shorturl/', (req,res) => {
-    res.sendFile(__dirname + "/views/index.html");
+app.get('/api/shorturl/:short', (req,res) => {
+  const original = URLLong.findOne({id: req.params.short}); 
+  res.json({"echo": original});
+  //  res.sendFile(__dirname + "/views/index.html");
 });
         
 app.listen(port, function () {
