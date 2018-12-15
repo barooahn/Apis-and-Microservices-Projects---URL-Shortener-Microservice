@@ -67,7 +67,7 @@ app.get('/api/shorturl/:short', (req,res) => {
   URLLong.findOne({id: req.params.short}, function (err, original) {
   console.log(original); 
 
-  res.render(original.original);
+  res.redirect(original.original);
   }); 
   
   //console.log(original['original']);
